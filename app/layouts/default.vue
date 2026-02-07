@@ -7,8 +7,10 @@ const nav = [
   { label: 'Quiz', to: '/quiz', icon: 'i-heroicons-question-mark-circle' },
   { label: 'Calculators', to: '/calculators', icon: 'i-heroicons-calculator' },
   { label: 'Candlesticks', to: '/candlesticks', icon: 'i-heroicons-chart-bar' },
+  { label: 'Market Structure', to: '/market-structure', icon: 'i-heroicons-arrow-trending-up' },
 ]
 </script>
+
 
 <template>
   <div class="min-h-screen bg-gray-950">
@@ -39,3 +41,4 @@ const nav = [
     </div>
   </div>
 </template>
+
