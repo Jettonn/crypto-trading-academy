@@ -1,9 +1,6 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
-  
-  srcDir: 'app',
-  
   modules: ['@nuxt/ui', '@nuxt/icon'],
 
   ui: {
@@ -18,7 +15,11 @@ export default defineNuxtConfig({
     head: {
       title: 'Crypto Trading Academy',
       meta: [
-        { name: 'description', content: 'Master crypto trading fundamentals - Week 1' }
+        { name: 'description', content: 'Master crypto trading fundamentals - Week 1: Risk Management & Foundations' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
       ]
     }
   },

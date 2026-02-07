@@ -7,13 +7,6 @@ const features = [
     to: '/glossary'
   },
   {
-    icon: 'i-heroicons-arrow-trending-up',
-    title: 'Market Structure',
-    description: 'Master BOS, CHoCH, and trend analysis with interactive diagrams and tips.',
-    to: '/market-structure',
-    featured: true
-  },
-  {
     icon: 'i-heroicons-rectangle-stack',
     title: 'Flashcards',
     description: 'Interactive flashcards with spaced repetition to master concepts quickly.',
@@ -34,11 +27,17 @@ const features = [
 ]
 
 const weekContent = [
-  { title: 'Trading Jargons', desc: 'FOMO, FUD, Bull, Bear, S/R, and more' },
-  { title: 'Market Structure', desc: 'BOS, CHoCH, HH/HL/LH/LL, trend analysis' },
-  { title: 'Risk Management', desc: '1-2% rule, position sizing, leverage' },
-  { title: 'Candlesticks', desc: 'Anatomy, patterns, and what they mean' },
-  { title: '17 Bulletproof Concepts', desc: 'Essential rules to avoid bankruptcy' },
+  { title: 'Trading Jargons', desc: 'FOMO, FUD, Bull, Bear, S/R, and more', to: '/glossary' },
+  { title: 'Risk Management', desc: '1-2% rule, position sizing, leverage', to: '/risk-management' },
+  { title: 'Candlesticks', desc: 'Anatomy, patterns, and what they mean', to: '/candlesticks' },
+  { title: '17 Bulletproof Concepts', desc: 'Essential rules to avoid bankruptcy', to: '/risk-management' },
+]
+
+const week2Content = [
+  { title: 'Market Structure Basics', desc: 'HH, HL, LH, LL, BOS - identify trends', to: '/market-structure' },
+  { title: 'Deep Swings & Pullbacks', desc: 'Which swing points to use and how to trade pullbacks', to: '/market-structure' },
+  { title: 'CHoCH', desc: 'Change of Character - anticipating reversals', to: '/market-structure' },
+  { title: 'Swing vs Substructure', desc: 'Bigger picture vs smaller movements', to: '/market-structure' },
 ]
 </script>
 
@@ -47,7 +46,7 @@ const weekContent = [
     <!-- Hero -->
     <div class="max-w-3xl">
       <UBadge color="primary" variant="soft" class="mb-4">
-        Week 1 â¢ Risk Management & Foundations
+        Week 1-2 • Foundations & Market Structure
       </UBadge>
 
       <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">
@@ -83,22 +82,45 @@ const weekContent = [
 
     <!-- Week 1 Content Preview -->
     <div class="mt-16">
-      <h2 class="text-2xl font-bold text-white mb-6">What You'll Learn This Week</h2>
+      <h2 class="text-2xl font-bold text-white mb-6">Week 1: Foundations</h2>
 
       <div class="grid sm:grid-cols-2 gap-4">
-        <div
+        <NuxtLink
           v-for="(item, i) in weekContent"
           :key="i"
-          class="flex items-start gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800"
+          :to="item.to"
+          class="group flex items-start gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800 hover:border-primary-500/50 transition-all"
         >
           <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 font-bold text-sm shrink-0">
             {{ i + 1 }}
           </div>
           <div>
-            <h3 class="font-semibold text-white">{{ item.title }}</h3>
+            <h3 class="font-semibold text-white group-hover:text-primary-400 transition-colors">{{ item.title }}</h3>
             <p class="text-sm text-gray-400">{{ item.desc }}</p>
           </div>
-        </div>
+        </NuxtLink>
+      </div>
+    </div>
+
+    <!-- Week 2 Content Preview -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-white mb-6">Week 2: Market Structure</h2>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <NuxtLink
+          v-for="(item, i) in week2Content"
+          :key="i"
+          :to="item.to"
+          class="group flex items-start gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800 hover:border-primary-500/50 transition-all"
+        >
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 font-bold text-sm shrink-0">
+            {{ i + 1 }}
+          </div>
+          <div>
+            <h3 class="font-semibold text-white group-hover:text-primary-400 transition-colors">{{ item.title }}</h3>
+            <p class="text-sm text-gray-400">{{ item.desc }}</p>
+          </div>
+        </NuxtLink>
       </div>
     </div>
 

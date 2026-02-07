@@ -1,110 +1,160 @@
-<script setup>
-  
-const quizQuestions = [
-  { q: "What does FOMO stand for?", a: "Fear Of Missing Out", wrong: ["Fear Of Market Orders", "First Order Market Option", "Future Options Made Open"] },
-  { q: "What is a 'whale' in crypto trading?", a: "A trader with a very large stake who can move markets", wrong: ["A type of candlestick pattern", "A trading strategy", "A market indicator"] },
-  { q: "What does R:R ratio measure?", a: "Potential loss compared to potential gain", wrong: ["Return on investment", "Risk rating", "Revenue ratio"] },
-  { q: "What is CHoCH in market structure?", a: "Change of Character - shift from bullish to bearish or vice versa", wrong: ["Chart of Charts", "Continuous High or Chart High", "Changing Order of Charts"] },
-  { q: "What indicates a bullish market structure?", a: "Higher Highs (HH) and Higher Lows (HL)", wrong: ["Lower Highs and Lower Lows", "Equal Highs and Lows", "No clear pattern"] },
-  { q: "What is the '1% Rule' in risk management?", a: "Never risk more than 1% of your account on a single trade", wrong: ["Only trade 1% of the time", "Expect 1% daily returns", "Use 1% leverage"] },
-  { q: "What does a Doji candlestick indicate?", a: "Market indecision - open and close are nearly equal", wrong: ["Strong bullish momentum", "Strong bearish momentum", "High volume"] },
-  { q: "What is a 'stop loss' order?", a: "An order to exit a position when price moves against you", wrong: ["An order to enter at a better price", "A type of limit order", "A market maker strategy"] },
-  { q: "What is the difference between HTF and LTF?", a: "HTF (Higher Time Frame) for bias, LTF (Lower Time Frame) for entries", wrong: ["HTF is for entries, LTF for exits", "They are the same thing", "HTF means high trading frequency"] },
-  { q: "What is 'liquidity' in trading?", a: "How quickly you can buy/sell without significantly moving the price", wrong: ["The amount of water in the market", "Total market cap", "Trading volume only"] }
-]
+<script setup lang="ts">
+const { tradingTerms } = useTradingTerms()
 
-const questions = ref([...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 10))
-const currentQ = ref(0)
-const score = ref(0)
-const selected = ref(null)
-const showResult = ref(false)
-const quizComplete = ref(false)
-
-const options = computed(() => {
-  const q = questions.value[currentQ.value]
-  return [q.a, ...q.wrong].sort(() => Math.random() - 0.5)
+const quizState = ref({
+  current: 0,
+  score: 0,
+  answered: false,
+  selected: null as string | null,
+  finished: false
 })
 
-const selectAnswer = (opt) => {
-  if (showResult.value) return
-  selected.value = opt
-  showResult.value = true
-  if (opt === questions.value[currentQ.value].a) score.value++
+const quizQuestions = ref<any[]>([])
+
+function generateQuiz() {
+  const questions: any[] = []
+  const shuffled = [...tradingTerms].sort(() => Math.random() - 0.5).slice(0, 10)
+
+  shuffled.forEach(correct => {
+    const wrongAnswers = tradingTerms
+      .filter(t => t.term !== correct.term)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+
+    const options = [...wrongAnswers.map(w => w.definition), correct.definition]
+      .sort(() => Math.random() - 0.5)
+
+    questions.push({
+      term: correct.term,
+      correctAnswer: correct.definition,
+      options
+    })
+  })
+
+  quizQuestions.value = questions
+  quizState.value = { current: 0, score: 0, answered: false, selected: null, finished: false }
 }
 
-const nextQuestion = () => {
-  if (currentQ.value < questions.value.length - 1) {
-    currentQ.value++
-    selected.value = null
-    showResult.value = false
+function handleAnswer(answer: string) {
+  if (quizState.value.answered) return
+  const isCorrect = answer === quizQuestions.value[quizState.value.current].correctAnswer
+  quizState.value.answered = true
+  quizState.value.selected = answer
+  if (isCorrect) quizState.value.score++
+}
+
+function nextQuestion() {
+  if (quizState.value.current + 1 >= quizQuestions.value.length) {
+    quizState.value.finished = true
   } else {
-    quizComplete.value = true
+    quizState.value.current++
+    quizState.value.answered = false
+    quizState.value.selected = null
   }
 }
 
-const restartQuiz = () => {
-  questions.value = [...quizQuestions].sort(() => Math.random() - 0.5).slice(0, 10)
-  currentQ.value = 0
-  score.value = 0
-  selected.value = null
-  showResult.value = false
-  quizComplete.value = false
-}
+const progress = computed(() => ((quizState.value.current + 1) / quizQuestions.value.length) * 100)
+const currentQuestion = computed(() => quizQuestions.value[quizState.value.current])
+
+onMounted(generateQuiz)
 </script>
 
 <template>
-  <div class="p-6 max-w-2xl mx-auto">
-    <div class="mb-8 text-center">
-      <h1 class="text-3xl font-bold text-white mb-2">Week 1 Quiz</h1>
-      <p class="text-gray-400">Test your knowledge of trading fundamentals</p>
-    </div>
-
-    <!-- Quiz Complete -->
-    <div v-if="quizComplete" class="text-center">
-      <UCard class="mb-8">
-        <div class="py-8">
-          <UIcon :name="score >= 7 ? 'i-heroicons-trophy' : 'i-heroicons-academic-cap'" 
-                 :class="score >= 7 ? 'text-yellow-400' : 'text-primary-400'" class="w-16 h-16 mx-auto mb-4" />
-          <h2 class="text-2xl font-bold text-white mb-2">Quiz Complete!</h2>
-          <p class="text-4xl font-bold mb-4" :class="score >= 7 ? 'text-green-400' : score >= 5 ? 'text-yellow-400' : 'text-red-400'">
-            {{ score }} / {{ questions.length }}
-          </p>
-          <p class="text-gray-400">
-            {{ score >= 7 ? 'Excellent! You have a solid understanding!' : score >= 5 ? 'Good effort! Review the glossary for missed terms.' : 'Keep studying! Review the flashcards and try again.' }}
-          </p>
+  <div class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-2xl mx-auto">
+      <!-- Finished State -->
+      <div v-if="quizState.finished" class="text-center py-12">
+        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+          <UIcon name="i-heroicons-trophy" class="w-12 h-12 text-white" />
         </div>
-      </UCard>
-      <div class="flex gap-4 justify-center">
-        <UButton icon="i-heroicons-arrow-path" @click="restartQuiz">Try Again</UButton>
-        <UButton to="/flashcards" variant="soft" icon="i-heroicons-rectangle-stack">Study Flashcards</UButton>
+
+        <h1 class="text-3xl font-bold text-white mb-2">Quiz Complete!</h1>
+
+        <p class="text-6xl font-extrabold text-primary-400 mb-4">
+          {{ quizState.score }} / {{ quizQuestions.length }}
+        </p>
+
+        <p class="text-xl text-gray-400 mb-8">
+          {{ quizState.score === quizQuestions.length ? "Perfect score! You're a trading master! 🎉" :
+             quizState.score >= 7 ? "Great job! Keep practicing! 💪" :
+             quizState.score >= 5 ? "Good effort! Review the flashcards 📚" :
+             "Keep studying! You'll get there! 🚀" }}
+        </p>
+
+        <div class="flex justify-center gap-3">
+          <UButton @click="generateQuiz" size="lg" color="primary">
+            Try Again
+          </UButton>
+          <UButton to="/flashcards" size="lg" variant="soft" color="gray">
+            Review Flashcards
+          </UButton>
+        </div>
       </div>
-    </div>
 
-    <!-- Quiz Questions -->
-    <div v-else>
-      <UProgress :value="((currentQ + 1) / questions.length) * 100" color="primary" size="sm" class="mb-6" />
-      
-      <UCard class="mb-6">
-        <div class="mb-6">
-          <UBadge color="primary" variant="soft" class="mb-4">Question {{ currentQ + 1 }} of {{ questions.length }}</UBadge>
-          <h2 class="text-xl font-semibold text-white">{{ questions[currentQ].q }}</h2>
+      <!-- Quiz Questions -->
+      <div v-else-if="currentQuestion">
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="text-2xl font-bold text-white">Quiz</h1>
+          <UBadge color="primary" variant="soft" size="lg">
+            Score: {{ quizState.score }}
+          </UBadge>
         </div>
-        
-        <div class="space-y-3">
-          <button v-for="(opt, i) in options" :key="i" @click="selectAnswer(opt)"
-            :class="['w-full p-4 rounded-lg text-left transition border-2',
-              showResult && opt === questions[currentQ].a ? 'border-green-500 bg-green-500/10' :
-              showResult && opt === selected ? 'border-red-500 bg-red-500/10' :
-              !showResult ? 'border-gray-700 hover:border-primary-500 bg-gray-800' : 'border-gray-700 bg-gray-800']">
-            <span class="text-gray-200">{{ opt }}</span>
-          </button>
-        </div>
-      </UCard>
 
-      <div class="flex justify-between items-center">
-        <p class="text-gray-400">Score: {{ score }}</p>
-        <UButton v-if="showResult" @click="nextQuestion" icon="i-heroicons-arrow-right" icon-position="right">
-          {{ currentQ < questions.length - 1 ? 'Next Question' : 'See Results' }}
+        <div class="flex items-center gap-4 mb-6 text-sm text-gray-400">
+          <span>Question {{ quizState.current + 1 }} of {{ quizQuestions.length }}</span>
+        </div>
+
+        <UProgress :value="progress" color="primary" size="sm" class="mb-8" />
+
+        <UCard class="mb-6">
+          <h2 class="text-xl font-semibold text-center text-white mb-8">
+            What is <span class="text-primary-400">{{ currentQuestion.term }}</span>?
+          </h2>
+
+          <div class="space-y-3">
+            <button
+              v-for="(option, idx) in currentQuestion.options"
+              :key="idx"
+              @click="handleAnswer(option)"
+              :disabled="quizState.answered"
+              :class="[
+                'w-full p-4 rounded-xl text-left transition-all flex items-center gap-4',
+                quizState.answered
+                  ? option === currentQuestion.correctAnswer
+                    ? 'bg-green-500/20 border-2 border-green-500 text-white'
+                    : quizState.selected === option
+                      ? 'bg-red-500/20 border-2 border-red-500 text-white'
+                      : 'bg-gray-800 border-2 border-transparent opacity-50 text-gray-400'
+                  : 'bg-gray-800 border-2 border-gray-700 hover:border-primary-500 text-white cursor-pointer'
+              ]"
+            >
+              <span class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-700 text-lg font-bold shrink-0">
+                {{ String.fromCharCode(65 + idx) }}
+              </span>
+              <span class="flex-1">{{ option }}</span>
+              <UIcon
+                v-if="quizState.answered && option === currentQuestion.correctAnswer"
+                name="i-heroicons-check-circle-solid"
+                class="w-6 h-6 text-green-400"
+              />
+              <UIcon
+                v-if="quizState.answered && quizState.selected === option && option !== currentQuestion.correctAnswer"
+                name="i-heroicons-x-circle-solid"
+                class="w-6 h-6 text-red-400"
+              />
+            </button>
+          </div>
+        </UCard>
+
+        <UButton
+          v-if="quizState.answered"
+          @click="nextQuestion"
+          block
+          size="lg"
+          color="primary"
+        >
+          {{ quizState.current + 1 >= quizQuestions.length ? 'See Results' : 'Next Question' }}
+          <UIcon name="i-heroicons-arrow-right" class="w-5 h-5 ml-2" />
         </UButton>
       </div>
     </div>

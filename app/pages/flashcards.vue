@@ -1,88 +1,132 @@
-<script setup>
+<script setup lang="ts">
 const { tradingTerms, masteredTerms, toggleMastered } = useTradingTerms()
 
-const cards = ref([...tradingTerms])
-const currentIndex = ref(0)
+const currentCard = ref(0)
 const isFlipped = ref(false)
+const shuffledTerms = ref([...tradingTerms])
 
-const currentCard = computed(() => cards.value[currentIndex.value])
-const progress = computed(() => ((currentIndex.value + 1) / cards.value.length) * 100)
+function shuffleCards() {
+  shuffledTerms.value = [...tradingTerms].sort(() => Math.random() - 0.5)
+  currentCard.value = 0
+  isFlipped.value = false
+}
 
-const flip = () => { isFlipped.value = !isFlipped.value }
-const next = () => {
-  isFlipped.value = false
-  setTimeout(() => { currentIndex.value = (currentIndex.value + 1) % cards.value.length }, 200)
+function nextCard() {
+  if (currentCard.value < shuffledTerms.value.length - 1) {
+    currentCard.value++
+    isFlipped.value = false
+  }
 }
-const prev = () => {
-  isFlipped.value = false
-  setTimeout(() => { currentIndex.value = (currentIndex.value - 1 + cards.value.length) % cards.value.length }, 200)
+
+function prevCard() {
+  if (currentCard.value > 0) {
+    currentCard.value--
+    isFlipped.value = false
+  }
 }
-const shuffle = () => {
-  cards.value = [...cards.value].sort(() => Math.random() - 0.5)
-  currentIndex.value = 0
-  isFlipped.value = false
-}
-const markMastered = () => {
-  toggleMastered(currentCard.value.term)
-  next()
-}
+
+const currentTerm = computed(() => shuffledTerms.value[currentCard.value])
+const progress = computed(() => ((currentCard.value + 1) / shuffledTerms.value.length) * 100)
 </script>
 
 <template>
-  <div class="p-6 max-w-2xl mx-auto">
-    <div class="mb-8 text-center">
-      <h1 class="text-3xl font-bold text-white mb-2">Flashcards</h1>
-      <p class="text-gray-400">Card {{ currentIndex + 1 }} of {{ cards.length }}</p>
-    </div>
-
-    <!-- Progress Bar -->
-    <UProgress :value="progress" color="primary" size="sm" class="mb-8" />
-
-    <!-- Flashcard -->
-    <div class="perspective-1000 mb-8" @click="flip">
-      <div :class="['relative w-full h-80 transition-transform duration-500 transform-style-3d cursor-pointer',
-                    isFlipped ? 'rotate-y-180' : '']">
-        <!-- Front -->
-        <div class="absolute inset-0 backface-hidden">
-          <UCard class="h-full flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
-            <div class="text-center p-8">
-              <UBadge color="primary" variant="soft" class="mb-4">{{ currentCard?.category }}</UBadge>
-              <h2 class="text-3xl font-bold text-white">{{ currentCard?.term }}</h2>
-              <p class="text-gray-400 mt-4">Click to reveal definition</p>
-            </div>
-          </UCard>
+  <div class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-2xl mx-auto">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-white">Flashcards</h1>
+          <p class="text-sm text-gray-400">Card {{ currentCard + 1 }} of {{ shuffledTerms.length }}</p>
         </div>
-        <!-- Back -->
-        <div class="absolute inset-0 backface-hidden rotate-y-180">
-          <UCard class="h-full flex items-center justify-center bg-gradient-to-br from-primary-900/50 to-gray-900">
-            <div class="text-center p-8">
-              <h3 class="text-xl font-semibold text-primary-400 mb-4">{{ currentCard?.term }}</h3>
-              <p class="text-lg text-gray-200">{{ currentCard?.definition }}</p>
-            </div>
-          </UCard>
+        <UButton
+          @click="shuffleCards"
+          variant="soft"
+          color="gray"
+          icon="i-heroicons-arrow-path"
+        >
+          Shuffle
+        </UButton>
+      </div>
+
+      <!-- Progress -->
+      <UProgress :value="progress" color="primary" size="sm" class="mb-8" />
+
+      <!-- Card -->
+      <div
+        @click="isFlipped = !isFlipped"
+        class="cursor-pointer mb-8"
+        style="perspective: 1000px"
+      >
+        <div
+          :class="[
+            'relative h-80 transition-transform duration-500',
+            isFlipped ? '[transform:rotateY(180deg)]' : ''
+          ]"
+          style="transform-style: preserve-3d"
+        >
+          <!-- Front -->
+          <div
+            class="absolute inset-0 p-8 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex flex-col justify-center items-center text-center"
+            style="backface-visibility: hidden"
+          >
+            <UBadge color="white" variant="soft" class="mb-4">
+              {{ currentTerm?.category }}
+            </UBadge>
+            <h2 class="text-4xl font-bold text-white mb-6">{{ currentTerm?.term }}</h2>
+            <p class="text-primary-100 flex items-center gap-2">
+              <UIcon name="i-heroicons-hand-raised" class="w-5 h-5" />
+              Tap to reveal definition
+            </p>
+          </div>
+
+          <!-- Back -->
+          <div
+            class="absolute inset-0 p-8 rounded-2xl bg-gray-800 border border-gray-700 flex flex-col justify-center items-center text-center [transform:rotateY(180deg)]"
+            style="backface-visibility: hidden"
+          >
+            <h3 class="text-xl font-semibold text-primary-400 mb-4">{{ currentTerm?.term }}</h3>
+            <p class="text-lg text-gray-300 leading-relaxed">{{ currentTerm?.definition }}</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Controls -->
-    <div class="flex justify-center gap-4 mb-6">
-      <UButton icon="i-heroicons-arrow-left" color="gray" variant="soft" @click="prev">Previous</UButton>
-      <UButton icon="i-heroicons-arrow-path" color="gray" variant="soft" @click="shuffle">Shuffle</UButton>
-      <UButton icon="i-heroicons-arrow-right" color="gray" variant="soft" @click="next">Next</UButton>
-    </div>
+      <!-- Controls -->
+      <div class="flex items-center justify-center gap-4">
+        <UButton
+          @click="prevCard"
+          :disabled="currentCard === 0"
+          variant="soft"
+          color="gray"
+          icon="i-heroicons-chevron-left"
+          size="lg"
+          square
+        />
 
-    <div class="flex justify-center">
-      <UButton :icon="masteredTerms.has(currentCard?.term) ? 'i-heroicons-check-circle-solid' : 'i-heroicons-check-circle'"
-        :color="masteredTerms.has(currentCard?.term) ? 'green' : 'primary'" size="lg" @click="markMastered">
-        {{ masteredTerms.has(currentCard?.term) ? 'Mastered!' : 'Mark as Mastered' }}
-      </UButton>
+        <UButton
+          @click="toggleMastered(currentTerm?.term)"
+          :color="masteredTerms.has(currentTerm?.term) ? 'primary' : 'gray'"
+          :variant="masteredTerms.has(currentTerm?.term) ? 'solid' : 'soft'"
+          size="lg"
+        >
+          <UIcon name="i-heroicons-check" class="w-5 h-5 mr-2" />
+          {{ masteredTerms.has(currentTerm?.term) ? 'Mastered' : 'Mark as Mastered' }}
+        </UButton>
+
+        <UButton
+          @click="nextCard"
+          :disabled="currentCard === shuffledTerms.length - 1"
+          variant="soft"
+          color="gray"
+          icon="i-heroicons-chevron-right"
+          size="lg"
+          square
+        />
+      </div>
+
+      <!-- Keyboard Hints -->
+      <div class="mt-8 text-center text-sm text-gray-500">
+        <p>Click card to flip • Use arrow buttons to navigate</p>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.perspective-1000 { perspective: 1000px; }
-.transform-style-3d { transform-style: preserve-3d; }
-.backface-hidden { backface-visibility: hidden; }
-.rotate-y-180 { transform: rotateY(180deg); }
-</style>
