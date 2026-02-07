@@ -15,6 +15,11 @@ export const tradingTerms = [
   { term: "LL (Lower Low)", definition: "A swing low that is lower than the previous swing low - sign of downtrend", category: "Market Structure" },
   { term: "CHoCH", definition: "Change of Character - the first switch turning substructure from bullish to bearish or vice versa", category: "Market Structure" },
   { term: "BOS / MSB", definition: "Break of Structure / Market Structure Break - when price takes out a significant high or low", category: "Market Structure" },
+  { term: "Deep Swing", definition: "A significant swing point: Deep swing HIGH is the highest point that causes the swing low, Deep swing LOW is the lowest point that causes the swing high", category: "Market Structure" },
+  { term: "Swing Structure", definition: "The framework of deep swing highs and lows that highlights significant price fluctuations (the bigger picture)", category: "Market Structure" },
+  { term: "Substructure", definition: "The minor movements happening inside the larger swing structure - where CHoCH signals appear (the smaller picture)", category: "Market Structure" },
+  { term: "SFP", definition: "Swing Failure Pattern - when price fails to make a HH in uptrend or LL in downtrend, signals potential reversal", category: "Market Structure" },
+  { term: "Pullback", definition: "A temporary move against the main trend. After every BOS, expect a pullback on that timeframe before continuation", category: "Market Structure" },
   { term: "HTF", definition: "Higher Time Frame - typically Daily, Weekly, Monthly charts for bias", category: "Timeframes" },
   { term: "LTF", definition: "Lower Time Frame - typically anything under 4H, used for entries", category: "Timeframes" },
   { term: "Leverage", definition: "The extra amount of asset bought or sold over your capital (e.g., 10x means $100 controls $1000)", category: "Risk" },
@@ -41,6 +46,7 @@ export const tradingTerms = [
   { term: "Long Wick", definition: "Shows rejection. Upper wick = sellers won. Lower wick = buyers won", category: "Candlesticks" },
 ]
 
+
 export const candlestickPatterns = [
   { name: "Bullish Engulfing", type: "bullish", description: "A large green candle completely covers the previous red candle", image: "" },
   { name: "Bearish Engulfing", type: "bearish", description: "A large red candle completely covers the previous green candle", image: "" },
@@ -48,6 +54,7 @@ export const candlestickPatterns = [
   { name: "Hammer", type: "bullish", description: "Small body at top with long lower wick - signals buyers stepping in", image: "" },
   { name: "Shooting Star", type: "bearish", description: "Small body at bottom with long upper wick - signals seller rejection", image: "" },
 ]
+
 
 export const formulas = [
   {
@@ -61,34 +68,3 @@ export const formulas = [
       return priceDiff > 0 ? (riskAmount / priceDiff).toFixed(4) : "0"
     }
   },
-  {
-    name: "Risk:Reward Ratio",
-    formula: "R:R = (Target - Entry) ÷ (Entry - Stop Loss)",
-    description: "Compare potential profit to potential loss",
-    inputs: ["entryPrice", "targetPrice", "stopLoss"],
-    calculate: (vals) => {
-      const risk = Math.abs((vals.entryPrice || 0) - (vals.stopLoss || 0))
-      const reward = Math.abs((vals.targetPrice || 0) - (vals.entryPrice || 0))
-      return risk > 0 ? (reward / risk).toFixed(2) + ":1" : "0:1"
-    }
-  },
-]
-
-export const inputLabels = {
-  accountSize: "Account Size ($)",
-  riskPercent: "Risk %",
-  entryPrice: "Entry Price ($)",
-  stopLoss: "Stop Loss ($)",
-  targetPrice: "Target Price ($)",
-}
-
-export function useTradingTerms() {
-  const masteredTerms = useState('masteredTerms', () => new Set())
-  const toggleMastered = (term) => {
-    if (masteredTerms.value.has(term)) masteredTerms.value.delete(term)
-    else masteredTerms.value.add(term)
-    masteredTerms.value = new Set(masteredTerms.value)
-  }
-  const categories = computed(() => ['All', ...new Set(tradingTerms.map(t => t.category))])
-  return { tradingTerms, candlestickPatterns, formulas, inputLabels, masteredTerms, toggleMastered, categories }
-}
