@@ -1,6 +1,5 @@
 <script setup>
-const { tradingTerms } = useTradingTerms()
-
+  
 const quizQuestions = [
   { q: "What does FOMO stand for?", a: "Fear Of Missing Out", wrong: ["Fear Of Market Orders", "First Order Market Option", "Future Options Made Open"] },
   { q: "What is a 'whale' in crypto trading?", a: "A trader with a very large stake who can move markets", wrong: ["A type of candlestick pattern", "A trading strategy", "A market indicator"] },
