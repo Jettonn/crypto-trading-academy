@@ -24,5 +24,9 @@ export default defineNuxtConfig({
     }
   },
 
-  ssr: false
+  ssr: false,
+
+  nitro: {
+    preset: 'static'
+  }
 })
