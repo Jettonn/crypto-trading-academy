@@ -339,6 +339,12 @@ const vocabulary = [
             </div>
           </div>
         </div>
+
+        <!-- Real chart: Full labeled example showing both CHoCH types -->
+        <div class="bg-gray-900 rounded-xl overflow-hidden">
+          <p class="text-xs text-gray-500 px-4 pt-3">Real chart with Bearish CHoCH, Bullish CHoCH, and BOS all labeled</p>
+          <img src="/images/market-structure/ms2-page-06.png" alt="Real chart showing bearish CHoCH, bullish CHoCH and BOS labeled" class="w-full" loading="lazy" />
+        </div>
       </UCard>
 
       <!-- 2. Visual step-by-step: WHERE to find CHoCH -->
@@ -388,6 +394,13 @@ const vocabulary = [
               <p class="text-sm text-gray-300">You only care about the <em>first</em> bearish CHoCH and the <em>first</em> bullish CHoCH in each swing. Don't try to force multiple ones.</p>
             </div>
           </div>
+        </div>
+
+        <!-- Real chart: Swing structure with CHoCH marked inside substructure -->
+        <p class="text-gray-400 text-sm mb-2">Here's a real 4H BTC chart. Notice how the CHoCH sits <strong class="text-white">inside</strong> the substructure between the deep swing high and low:</p>
+        <div class="bg-gray-900 rounded-xl overflow-hidden">
+          <p class="text-xs text-gray-500 px-4 pt-3">4H BTC - Deep swing high/low marked, CHoCH lives in the substructure between them</p>
+          <img src="/images/market-structure/ms2-page-10.png" alt="4H BTC chart showing swing structure with CHoCH in substructure" class="w-full" loading="lazy" />
         </div>
       </UCard>
 
@@ -479,6 +492,13 @@ const vocabulary = [
             <line x1="125" y1="258" x2="150" y2="258" stroke="#60a5fa" stroke-width="2"/>
             <text x="155" y="262" fill="#9ca3af" font-size="9">Substructure</text>
           </svg>
+        </div>
+
+        <!-- Real chart example for bearish CHoCH -->
+        <p class="text-gray-400 text-sm mb-2">Now see it on a real chart - the bearish CHoCH appears after HH, signaling the upswing is weakening:</p>
+        <div class="bg-gray-900 rounded-xl overflow-hidden">
+          <p class="text-xs text-gray-500 px-4 pt-3">BTC 1D - Bearish CHoCH after long uptrend, then confirmed by BOS</p>
+          <img src="/images/market-structure/ms1-page-14.png" alt="Bearish CHoCH on real BTC 1D chart" class="w-full" loading="lazy" />
         </div>
       </UCard>
 
@@ -581,6 +601,13 @@ const vocabulary = [
             <text x="230" y="262" fill="#9ca3af" font-size="9">New run after CHoCH</text>
           </svg>
         </div>
+
+        <!-- Real chart example for bullish CHoCH entry -->
+        <p class="text-gray-400 text-sm mb-2">On a real chart - the bullish CHoCH signals the pullback is ending, entry is after the first candle closes above it:</p>
+        <div class="bg-gray-900 rounded-xl overflow-hidden">
+          <p class="text-xs text-gray-500 px-4 pt-3">4H BTC - Bullish CHoCH signals end of pullback, enter long targeting previous HH</p>
+          <img src="/images/market-structure/ms2-page-09.png" alt="Bullish CHoCH long entry on real 4H BTC chart" class="w-full" loading="lazy" />
+        </div>
       </UCard>
 
       <!-- 5. The full picture: BOS + CHoCH together -->
@@ -637,16 +664,31 @@ const vocabulary = [
       <!-- 6. Real chart examples -->
       <UCard>
         <template #header>
-          <h2 class="text-xl font-semibold text-white">Real Chart Example</h2>
+          <h2 class="text-xl font-semibold text-white">Real Trade Examples Using CHoCH</h2>
         </template>
-        <p class="text-gray-300 leading-relaxed mb-4">
-          Here's a real trade from the BTC daily chart. Notice: after a long uptrend, the <strong class="text-red-400">Bearish CHoCH</strong>
-          appeared first (first sign the upswing is weakening), then the <strong class="text-white">BOS confirmed</strong> the trend change.
-          More aggressive traders enter on the first CHoCH. Beginners should wait for the BOS + pullback confirmation.
+
+        <!-- Long setup -->
+        <h3 class="text-lg font-semibold text-green-400 mb-2">Long Setup with CHoCH</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-3">
+          On this 1D BTC chart, after each HH, the <strong class="text-red-400">Bearish CHoCH</strong> signals the pullback is starting.
+          Then the <strong class="text-green-400">Bullish CHoCH</strong> signals the pullback is ending - that's where you enter long,
+          targeting the previous HH.
         </p>
-        <div class="bg-gray-900 rounded-xl overflow-hidden">
-          <p class="text-xs text-gray-500 px-4 pt-3">CHoCH + BOS on BTC 1D chart - Real trade example</p>
-          <img src="/images/market-structure/ms1-page-14.png" alt="CHoCH on BTC 1D chart" class="w-full" loading="lazy" />
+        <div class="bg-gray-900 rounded-xl overflow-hidden mb-6">
+          <p class="text-xs text-gray-500 px-4 pt-3">1D BTC - Consecutive longs using Bearish + Bullish CHoCH cycle</p>
+          <img src="/images/market-structure/ms1-page-15.png" alt="Long setup using CHoCH on BTC 1D chart" class="w-full" loading="lazy" />
+        </div>
+
+        <!-- Short setup -->
+        <h3 class="text-lg font-semibold text-red-400 mb-2">Short Setup with CHoCH</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-3">
+          Same idea in reverse. The <strong class="text-red-400">Bearish CHoCH</strong> signals the upswing is weakening.
+          After BOS confirms the trend change, wait for a pullback. The second <strong class="text-red-400">Bearish CHoCH</strong>
+          signals the pullback is ending - enter short.
+        </p>
+        <div class="bg-gray-900 rounded-xl overflow-hidden mb-6">
+          <p class="text-xs text-gray-500 px-4 pt-3">1D BTC - Short setup: CHoCH signals weakness, BOS confirms, enter on pullback</p>
+          <img src="/images/market-structure/ms1-page-17.png" alt="Short setup using CHoCH on BTC 1D chart" class="w-full" loading="lazy" />
         </div>
       </UCard>
 
@@ -659,7 +701,7 @@ const vocabulary = [
           </div>
         </template>
 
-        <div class="space-y-4">
+        <div class="space-y-4 mb-6">
           <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
             <span class="text-red-400 font-bold text-lg shrink-0">1</span>
             <div>
@@ -670,8 +712,8 @@ const vocabulary = [
           <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
             <span class="text-red-400 font-bold text-lg shrink-0">2</span>
             <div>
-              <h4 class="font-semibold text-red-400 mb-1">Using CHoCH as a standalone entry signal</h4>
-              <p class="text-sm text-gray-300">CHoCH is NOT a confirmation - it's just the first <em>sign of weakness</em>. For beginners: always wait for BOS + pullback. Use CHoCH only as extra confluence.</p>
+              <h4 class="font-semibold text-red-400 mb-1">Confusing CHoCH with BOS</h4>
+              <p class="text-sm text-gray-300">CHoCH is NOT a structure break. It happens in the <strong class="text-white">minor movements in between</strong>, while BOS happens at deep swing levels. A bearish CHoCH might look like a BOS on lower timeframes, but they are different.</p>
             </div>
           </div>
           <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
@@ -687,6 +729,25 @@ const vocabulary = [
               <h4 class="font-semibold text-red-400 mb-1">Not waiting for a candle close</h4>
               <p class="text-sm text-gray-300">A wick poking through the level doesn't count. The candle must <strong class="text-white">close</strong> below/above the level for the CHoCH to be valid.</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Real Q&A examples from the course -->
+        <h3 class="text-base font-semibold text-white mb-3">Student Q&A from the Course</h3>
+        <p class="text-gray-400 text-sm mb-3">These are real questions from students that show common mistakes:</p>
+
+        <div class="space-y-4">
+          <div class="bg-gray-900 rounded-xl overflow-hidden">
+            <p class="text-xs text-gray-500 px-4 pt-3">"Why is this not CHoCH?" - Because price retraced upside right away (not a significant pullback)</p>
+            <img src="/images/market-structure/ms2-page-04.png" alt="Q1: Why is this not CHoCH - price retraced immediately" class="w-full" loading="lazy" />
+          </div>
+          <div class="bg-gray-900 rounded-xl overflow-hidden">
+            <p class="text-xs text-gray-500 px-4 pt-3">"Why is this a BOS and not CHoCH?" - CHoCH is not a structure break, it happens before the BOS</p>
+            <img src="/images/market-structure/ms2-page-07.png" alt="Q4: CHoCH vs BOS - CHoCH happens before BOS in minor movements" class="w-full" loading="lazy" />
+          </div>
+          <div class="bg-gray-900 rounded-xl overflow-hidden">
+            <p class="text-xs text-gray-500 px-4 pt-3">"Is it the red candle?" - No, the candle must close below the level. Look at the intermediate low being broken.</p>
+            <img src="/images/market-structure/ms2-page-08.png" alt="Q5: Which candle is the CHoCH - must close below the level" class="w-full" loading="lazy" />
           </div>
         </div>
       </UCard>
