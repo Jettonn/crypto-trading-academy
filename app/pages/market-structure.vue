@@ -752,7 +752,403 @@ const vocabulary = [
         </div>
       </UCard>
 
-      <!-- 8. Quick reference -->
+      <!-- 8. CHoCH vs CHoCH+ (Stronger Confirmation) -->
+      <UCard>
+        <template #header>
+          <div class="flex items-center gap-3">
+            <h2 class="text-xl font-semibold text-white">CHoCH vs CHoCH+ (Stronger Signal)</h2>
+            <UBadge color="purple" variant="soft">Advanced</UBadge>
+          </div>
+        </template>
+
+        <p class="text-gray-300 leading-relaxed mb-4">
+          Not all CHoCHs are created equal. There's a stronger version called <strong class="text-purple-400">CHoCH+</strong>
+          that gives you higher-probability entries.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+          <div class="p-5 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+            <h4 class="font-bold text-yellow-400 mb-2">Regular CHoCH</h4>
+            <p class="text-sm text-gray-300 mb-3">
+              Price breaks a minor swing point in the opposite direction. For example, in a bearish substructure,
+              price breaks above the <strong class="text-white">most recent lower high</strong>.
+            </p>
+            <div class="p-3 rounded-lg bg-gray-900/50 text-sm">
+              <p class="text-yellow-300">Early warning - trend <em>might</em> shift</p>
+            </div>
+          </div>
+          <div class="p-5 rounded-xl bg-purple-500/5 border border-purple-500/20">
+            <h4 class="font-bold text-purple-400 mb-2">CHoCH+ (Stronger)</h4>
+            <p class="text-sm text-gray-300 mb-3">
+              Not only does price break the minor swing point, but it also <strong class="text-white">fails to create
+              a new HH/HL or LL/LH pattern</strong>. The entire substructure pattern collapses.
+            </p>
+            <div class="p-3 rounded-lg bg-gray-900/50 text-sm">
+              <p class="text-purple-300">Stronger confirmation - trend shift is <em>more likely</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual comparison -->
+        <div class="bg-gray-900 rounded-xl p-4 sm:p-6 mb-4">
+          <p class="text-xs text-gray-500 mb-3 text-center">CHoCH vs CHoCH+ - The difference in structure failure</p>
+          <svg viewBox="0 0 560 260" class="w-full max-w-2xl mx-auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- Divider -->
+            <line x1="280" y1="10" x2="280" y2="250" stroke="#374151" stroke-width="1" stroke-dasharray="4"/>
+            <text x="140" y="20" fill="#fbbf24" font-size="11" text-anchor="middle" font-weight="bold">Regular CHoCH</text>
+            <text x="420" y="20" fill="#a855f7" font-size="11" text-anchor="middle" font-weight="bold">CHoCH+</text>
+
+            <!-- LEFT: Regular CHoCH (bearish sub → breaks one LH) -->
+            <!-- Downtrend substructure -->
+            <polyline points="30,50 60,80 80,65 110,100 130,85 160,120 180,105"
+              fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Labels -->
+            <text x="80" y="58" fill="#9ca3af" font-size="8" text-anchor="middle">lh</text>
+            <text x="130" y="78" fill="#9ca3af" font-size="8" text-anchor="middle">lh</text>
+            <text x="110" y="113" fill="#9ca3af" font-size="8" text-anchor="middle">ll</text>
+            <text x="160" y="133" fill="#9ca3af" font-size="8" text-anchor="middle">ll</text>
+            <!-- CHoCH break -->
+            <line x1="180" y1="105" x2="260" y2="105" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4"/>
+            <polyline points="180,105 200,120 220,95 240,85"
+              fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="195" y="82" width="55" height="16" rx="3" fill="#fbbf24" fill-opacity="0.15" stroke="#fbbf24" stroke-width="1"/>
+            <text x="222" y="93" fill="#fbbf24" font-size="9" text-anchor="middle" font-weight="bold">CHoCH</text>
+            <!-- Note -->
+            <text x="140" y="160" fill="#9ca3af" font-size="9" text-anchor="middle">Breaks one lower high</text>
+            <text x="140" y="173" fill="#9ca3af" font-size="9" text-anchor="middle">Could still be a fakeout</text>
+
+            <!-- RIGHT: CHoCH+ (bearish sub → full pattern failure) -->
+            <!-- Downtrend substructure -->
+            <polyline points="310,50 340,80 360,65 390,100 410,85 440,120 460,105"
+              fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Labels -->
+            <text x="360" y="58" fill="#9ca3af" font-size="8" text-anchor="middle">lh</text>
+            <text x="410" y="78" fill="#9ca3af" font-size="8" text-anchor="middle">lh</text>
+            <text x="390" y="113" fill="#9ca3af" font-size="8" text-anchor="middle">ll</text>
+            <text x="440" y="133" fill="#9ca3af" font-size="8" text-anchor="middle">ll</text>
+            <!-- CHoCH+ break - goes much higher, forming HL -->
+            <line x1="460" y1="105" x2="545" y2="105" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4"/>
+            <polyline points="460,105 475,115 490,80 505,90 520,55 540,45"
+              fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- HL marker -->
+            <circle cx="475" cy="115" r="3" fill="#22c55e"/>
+            <text x="475" y="128" fill="#22c55e" font-size="8" text-anchor="middle">HL!</text>
+            <rect x="480" y="62" width="60" height="16" rx="3" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="1"/>
+            <text x="510" y="73" fill="#a855f7" font-size="9" text-anchor="middle" font-weight="bold">CHoCH+</text>
+            <!-- Note -->
+            <text x="420" y="160" fill="#9ca3af" font-size="9" text-anchor="middle">Breaks LH AND forms a higher low</text>
+            <text x="420" y="173" fill="#9ca3af" font-size="9" text-anchor="middle">Full pattern collapse = stronger signal</text>
+
+            <!-- Bottom comparison -->
+            <rect x="50" y="195" width="180" height="50" rx="6" fill="#1f2937" stroke="#fbbf24" stroke-width="1" opacity="0.8"/>
+            <text x="140" y="213" fill="#fbbf24" font-size="9" text-anchor="middle" font-weight="bold">Regular CHoCH</text>
+            <text x="140" y="228" fill="#d1d5db" font-size="8" text-anchor="middle">Use as early warning</text>
+            <text x="140" y="239" fill="#d1d5db" font-size="8" text-anchor="middle">Wait for more confirmation</text>
+
+            <rect x="330" y="195" width="180" height="50" rx="6" fill="#1f2937" stroke="#a855f7" stroke-width="1" opacity="0.8"/>
+            <text x="420" y="213" fill="#a855f7" font-size="9" text-anchor="middle" font-weight="bold">CHoCH+</text>
+            <text x="420" y="228" fill="#d1d5db" font-size="8" text-anchor="middle">More confident signal</text>
+            <text x="420" y="239" fill="#d1d5db" font-size="8" text-anchor="middle">Can enter with tighter stop</text>
+          </svg>
+        </div>
+
+        <div class="p-4 rounded-xl bg-purple-500/5 border border-purple-500/20">
+          <div class="flex items-start gap-3">
+            <span class="text-xl shrink-0">🎯</span>
+            <p class="text-gray-300 text-sm">
+              <strong class="text-purple-400">Pro tip:</strong> When you see a <strong class="text-white">CHoCH+</strong>,
+              you can be more aggressive with your entry because the entire substructure pattern has failed.
+              A regular CHoCH might just be a temporary fakeout, but CHoCH+ means the old pattern is fully broken
+              - buyers/sellers at the previous level have been completely absorbed.
+            </p>
+          </div>
+        </div>
+      </UCard>
+
+      <!-- 9. Why CHoCH Works: Order Flow -->
+      <UCard>
+        <template #header>
+          <div class="flex items-center gap-3">
+            <h2 class="text-xl font-semibold text-white">Why CHoCH Works: Order Flow</h2>
+            <UBadge color="blue" variant="soft">Theory</UBadge>
+          </div>
+        </template>
+
+        <p class="text-gray-300 leading-relaxed mb-4">
+          CHoCH isn't just a random pattern - it reflects a real shift in <strong class="text-white">who is in control of the market</strong>.
+          Understanding this makes you much better at reading whether a CHoCH is significant or just noise.
+        </p>
+
+        <!-- Order flow explanation -->
+        <div class="space-y-4 mb-6">
+          <div class="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <h4 class="font-semibold text-green-400 mb-2">In an uptrend (before Bearish CHoCH)</h4>
+            <p class="text-sm text-gray-300">
+              Buyers are in control. Each time price pulls back to a higher low (HL), buyers step in and push price higher.
+              The HL is a <strong class="text-white">demand zone</strong> where buyers have been consistently active.
+            </p>
+          </div>
+          <div class="flex justify-center">
+            <UIcon name="i-heroicons-arrow-down" class="w-6 h-6 text-red-400" />
+          </div>
+          <div class="p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+            <h4 class="font-semibold text-red-400 mb-2">When a minor HL breaks (Bearish CHoCH)</h4>
+            <p class="text-sm text-gray-300">
+              It means <strong class="text-white">buyers who were expected to defend that level didn't show up</strong>.
+              The demand that was previously holding price up has been exhausted. Sellers have overcome the buying pressure.
+              This absence of buyers is what makes CHoCH significant - it's not just a line break, it's a shift in
+              the balance of power.
+            </p>
+          </div>
+          <div class="flex justify-center">
+            <UIcon name="i-heroicons-arrow-down" class="w-6 h-6 text-yellow-400" />
+          </div>
+          <div class="p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+            <h4 class="font-semibold text-yellow-400 mb-2">What this tells you</h4>
+            <p class="text-sm text-gray-300">
+              Smart money and institutional traders watch these levels. When a CHoCH happens, it tells you that the
+              <strong class="text-white">composition of market participants has changed</strong>. The previous buyers
+              have exited or been stopped out, and new sellers are taking over. This is why CHoCH often leads to
+              significant moves - it's not just a technical break, it reflects a real change in order flow.
+            </p>
+          </div>
+        </div>
+
+        <!-- Practical implication -->
+        <div class="p-4 rounded-xl bg-gray-800 border border-gray-700">
+          <div class="flex items-start gap-3">
+            <span class="text-xl shrink-0">💰</span>
+            <div>
+              <h4 class="font-semibold text-white mb-1">The Practical Takeaway</h4>
+              <p class="text-sm text-gray-300">
+                This is why you <strong class="text-white">never trade the CHoCH itself</strong> - you trade the pullback
+                after it. After a Bullish CHoCH, new buyers are entering. Wait for price to pull back into a
+                <strong class="text-primary-400">key zone</strong> (Order Block, supply/demand zone, support/resistance)
+                and enter there. This gives you a tight stop and high reward-to-risk.
+              </p>
+            </div>
+          </div>
+        </div>
+      </UCard>
+
+      <!-- 10. CHoCH Entry Strategy Framework -->
+      <UCard>
+        <template #header>
+          <div class="flex items-center gap-3">
+            <h2 class="text-xl font-semibold text-white">CHoCH Entry Strategy</h2>
+            <UBadge color="green" variant="soft">Actionable</UBadge>
+          </div>
+        </template>
+
+        <p class="text-gray-300 leading-relaxed mb-4">
+          Here's a step-by-step framework for turning CHoCH into actual trades. This combines what we've
+          learned about CHoCH with practical entry technique.
+        </p>
+
+        <!-- Strategy steps -->
+        <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold text-sm shrink-0">1</span>
+            <div>
+              <h4 class="font-semibold text-white mb-1">Establish your trend bias on HTF</h4>
+              <p class="text-sm text-gray-300">Use the 4H or 1D chart. Mark your swing structure (HH, HL or LH, LL) and confirm the trend with BOS.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold text-sm shrink-0">2</span>
+            <div>
+              <h4 class="font-semibold text-white mb-1">Wait for the CHoCH</h4>
+              <p class="text-sm text-gray-300">
+                After a BOS, drop to a lower timeframe (15m-1H) and watch the substructure.
+                Wait for the <strong class="text-red-400">Bearish CHoCH</strong> (pullback starting) → then the
+                <strong class="text-green-400">Bullish CHoCH</strong> (pullback ending).
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 font-bold text-sm shrink-0">3</span>
+            <div>
+              <h4 class="font-semibold text-white mb-1">Identify your key zone</h4>
+              <p class="text-sm text-gray-300">
+                After the CHoCH confirms direction, look for a pullback into a key area:
+                <strong class="text-primary-400">Order Block</strong>, supply/demand zone, or key support/resistance level.
+                This is where you look for your entry.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-400 font-bold text-sm shrink-0">4</span>
+            <div>
+              <h4 class="font-semibold text-yellow-400 mb-1">Enter on the retest</h4>
+              <p class="text-sm text-gray-300">
+                Enter when price pulls back to the key zone after CHoCH. Place your stop below the recent swing low
+                (for longs) or above the recent swing high (for shorts). Target the previous HH/LL for take profit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Long entry example -->
+        <div class="bg-gray-900 rounded-xl p-4 sm:p-6 mb-4">
+          <p class="text-xs text-gray-500 mb-3 text-center">Long Entry Framework - CHoCH → Pullback to Key Zone → Enter</p>
+          <svg viewBox="0 0 560 300" class="w-full max-w-2xl mx-auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background grid -->
+            <line x1="0" y1="75" x2="560" y2="75" stroke="#374151" stroke-width="0.5" stroke-dasharray="2"/>
+            <line x1="0" y1="150" x2="560" y2="150" stroke="#374151" stroke-width="0.5" stroke-dasharray="2"/>
+            <line x1="0" y1="225" x2="560" y2="225" stroke="#374151" stroke-width="0.5" stroke-dasharray="2"/>
+
+            <!-- HTF swing structure -->
+            <text x="30" y="18" fill="#9ca3af" font-size="9" font-weight="bold">HTF TREND (4H/1D)</text>
+            <polyline points="30,220 100,120 180,180 280,60 380,130"
+              fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+            <text x="100" y="112" fill="#22c55e" font-size="10" text-anchor="middle">HH</text>
+            <text x="180" y="195" fill="#22c55e" font-size="10" text-anchor="middle">HL</text>
+            <text x="280" y="52" fill="#22c55e" font-size="10" text-anchor="middle">HH</text>
+            <line x1="100" y1="120" x2="280" y2="120" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="5" opacity="0.4"/>
+            <text x="190" y="116" fill="#22c55e" font-size="9" text-anchor="middle" opacity="0.6">BOS</text>
+
+            <!-- Substructure pullback after HH -->
+            <text x="300" y="38" fill="#60a5fa" font-size="9" font-weight="bold">LTF SUBSTRUCTURE (15m-1H)</text>
+            <polyline points="280,60 300,85 310,72 330,105 345,90 360,125 375,110"
+              fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Bearish CHoCH -->
+            <text x="320" y="118" fill="#ef4444" font-size="8" text-anchor="middle">Bear CHoCH</text>
+            <circle cx="330" cy="105" r="3" fill="#ef4444"/>
+
+            <!-- Continued pullback -->
+            <polyline points="375,110 390,135 400,122 420,155 435,140"
+              fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Bullish CHoCH -->
+            <line x1="400" y1="122" x2="460" y2="122" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4"/>
+            <polyline points="435,140 450,148 460,115 475,105"
+              fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="430" y="100" width="65" height="16" rx="3" fill="#22c55e" fill-opacity="0.15" stroke="#22c55e" stroke-width="1"/>
+            <text x="462" y="111" fill="#22c55e" font-size="8" text-anchor="middle" font-weight="bold">Bull CHoCH</text>
+
+            <!-- Key zone (Order Block area) -->
+            <rect x="445" y="130" width="55" height="25" rx="3" fill="#a78bfa" fill-opacity="0.15" stroke="#a78bfa" stroke-width="1"/>
+            <text x="472" y="147" fill="#a78bfa" font-size="8" text-anchor="middle">Key Zone</text>
+
+            <!-- Pullback to key zone and entry -->
+            <polyline points="475,105 485,115 490,125 495,140"
+              fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3"/>
+            <!-- Entry marker -->
+            <circle cx="495" cy="140" r="5" fill="#fbbf24"/>
+            <text x="510" y="145" fill="#fbbf24" font-size="9" font-weight="bold">ENTRY</text>
+
+            <!-- Stop loss -->
+            <line x1="490" y1="165" x2="520" y2="165" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="530" y="169" fill="#ef4444" font-size="8">SL</text>
+
+            <!-- Take profit target -->
+            <line x1="490" y1="60" x2="540" y2="60" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="3"/>
+            <text x="545" y="64" fill="#22c55e" font-size="8">TP (prev HH)</text>
+
+            <!-- Arrow from entry to TP -->
+            <line x1="495" y1="135" x2="495" y2="65" stroke="#22c55e" stroke-width="1" stroke-dasharray="4" opacity="0.5"/>
+
+            <!-- Step labels -->
+            <rect x="30" y="240" width="510" height="50" rx="6" fill="#111827" stroke="#374151" stroke-width="1"/>
+            <text x="40" y="256" fill="#60a5fa" font-size="9" font-weight="bold">Step 1:</text>
+            <text x="85" y="256" fill="#d1d5db" font-size="8">HTF bias (bullish)</text>
+            <text x="180" y="256" fill="#60a5fa" font-size="9" font-weight="bold">Step 2:</text>
+            <text x="225" y="256" fill="#d1d5db" font-size="8">Wait for CHoCH</text>
+            <text x="320" y="256" fill="#60a5fa" font-size="9" font-weight="bold">Step 3:</text>
+            <text x="365" y="256" fill="#d1d5db" font-size="8">Find key zone</text>
+            <text x="450" y="256" fill="#fbbf24" font-size="9" font-weight="bold">Step 4:</text>
+            <text x="495" y="256" fill="#d1d5db" font-size="8">Enter retest</text>
+            <text x="40" y="275" fill="#9ca3af" font-size="8">SL below swing low | TP at previous HH | Risk:Reward typically 1:2 to 1:3+</text>
+          </svg>
+        </div>
+      </UCard>
+
+      <!-- 11. Best Timeframes for CHoCH -->
+      <UCard>
+        <template #header>
+          <div class="flex items-center gap-3">
+            <UIcon name="i-heroicons-clock" class="w-5 h-5 text-primary-400" />
+            <h2 class="text-xl font-semibold text-white">Best Timeframes for CHoCH</h2>
+          </div>
+        </template>
+
+        <p class="text-gray-300 leading-relaxed mb-4">
+          CHoCH works on all timeframes, but certain combinations give you the best results.
+          The key is to use <strong class="text-white">HTF for trend bias</strong> and <strong class="text-white">LTF for entry timing</strong>.
+        </p>
+
+        <div class="space-y-3 mb-6">
+          <!-- Swing trading -->
+          <div class="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <div class="flex items-center gap-3 mb-2">
+              <UBadge color="green" variant="soft" size="xs">Swing Trading</UBadge>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">HTF (Trend Bias)</p>
+                <p class="text-white font-semibold">1D - Weekly</p>
+                <p class="text-gray-400 text-xs">Mark BOS, HH, HL, LL, LH</p>
+              </div>
+              <div>
+                <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">LTF (CHoCH Entry)</p>
+                <p class="text-white font-semibold">4H - 1H</p>
+                <p class="text-gray-400 text-xs">Find CHoCH in substructure</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Intraday -->
+          <div class="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <div class="flex items-center gap-3 mb-2">
+              <UBadge color="blue" variant="soft" size="xs">Intraday Trading</UBadge>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">HTF (Trend Bias)</p>
+                <p class="text-white font-semibold">4H - 1H</p>
+                <p class="text-gray-400 text-xs">Mark BOS, HH, HL, LL, LH</p>
+              </div>
+              <div>
+                <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">LTF (CHoCH Entry)</p>
+                <p class="text-white font-semibold">15m - 30m</p>
+                <p class="text-gray-400 text-xs">Find CHoCH in substructure</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scalping -->
+          <div class="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+            <div class="flex items-center gap-3 mb-2">
+              <UBadge color="red" variant="soft" size="xs">Scalping</UBadge>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">HTF (Trend Bias)</p>
+                <p class="text-white font-semibold">30m - 15m</p>
+                <p class="text-gray-400 text-xs">Mark BOS, HH, HL, LL, LH</p>
+              </div>
+              <div>
+                <p class="text-gray-500 text-xs uppercase tracking-wide mb-1">LTF (CHoCH Entry)</p>
+                <p class="text-white font-semibold">5m - 1m</p>
+                <p class="text-gray-400 text-xs">Find CHoCH in substructure</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20">
+          <div class="flex items-start gap-3">
+            <UIcon name="i-heroicons-exclamation-triangle" class="w-5 h-5 text-amber-400 mt-0.5 shrink-0" />
+            <p class="text-gray-300 text-sm">
+              <strong class="text-amber-400">Warning:</strong> The lower the timeframe, the more noise you'll see and
+              the more fakeout CHoCHs you'll get. As a beginner, <strong class="text-white">start with 4H for trend
+              bias and 1H for CHoCH entries</strong>. Only go to lower timeframes once you're consistently profitable.
+            </p>
+          </div>
+        </div>
+      </UCard>
+
+      <!-- 12. Quick reference (updated) -->
       <div class="p-5 rounded-xl bg-primary-500/5 border border-primary-500/20">
         <div class="flex items-start gap-3">
           <UIcon name="i-heroicons-bookmark" class="w-5 h-5 text-primary-400 mt-0.5 shrink-0" />
@@ -768,6 +1164,15 @@ const vocabulary = [
                 <p class="text-white font-medium mb-1">Where they live</p>
                 <p class="text-gray-400"><strong class="text-green-400">BOS</strong> = in swing structure (deep swings)</p>
                 <p class="text-gray-400"><strong class="text-yellow-400">CHoCH</strong> = in substructure (minor moves)</p>
+              </div>
+              <div class="p-3 rounded-lg bg-gray-900/50">
+                <p class="text-white font-medium mb-1">CHoCH vs CHoCH+</p>
+                <p class="text-gray-400"><strong class="text-yellow-400">CHoCH</strong> = breaks one minor level (early warning)</p>
+                <p class="text-gray-400"><strong class="text-purple-400">CHoCH+</strong> = full pattern collapse (stronger)</p>
+              </div>
+              <div class="p-3 rounded-lg bg-gray-900/50">
+                <p class="text-white font-medium mb-1">Entry Framework</p>
+                <p class="text-gray-400">HTF bias → Wait for CHoCH → Find key zone → Enter retest</p>
               </div>
               <div class="p-3 rounded-lg bg-gray-900/50">
                 <p class="text-white font-medium mb-1">Bearish CHoCH</p>
