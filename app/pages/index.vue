@@ -39,6 +39,11 @@ const week2Content = [
   { title: 'CHoCH', desc: 'Change of Character - anticipating reversals', to: '/market-structure' },
   { title: 'Swing vs Substructure', desc: 'Bigger picture vs smaller movements', to: '/market-structure' },
 ]
+
+const week3Content = [
+  { title: 'Support & Resistance Zones', desc: 'Supply/demand, zone types, and MS confluence', to: '/support-resistance' },
+  { title: 'Level to Level Trading', desc: 'Drawing, refining, and trading horizontal levels', to: '/levels-trading' },
+]
 </script>
 
 <template>
@@ -46,7 +51,7 @@ const week2Content = [
     <!-- Hero -->
     <div class="max-w-3xl">
       <UBadge color="primary" variant="soft" class="mb-4">
-        Week 1-2 • Foundations & Market Structure
+        Week 1-3 • Foundations, Market Structure & Levels
       </UBadge>
 
       <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">
@@ -109,6 +114,28 @@ const week2Content = [
       <div class="grid sm:grid-cols-2 gap-4">
         <NuxtLink
           v-for="(item, i) in week2Content"
+          :key="i"
+          :to="item.to"
+          class="group flex items-start gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800 hover:border-primary-500/50 transition-all"
+        >
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 font-bold text-sm shrink-0">
+            {{ i + 1 }}
+          </div>
+          <div>
+            <h3 class="font-semibold text-white group-hover:text-primary-400 transition-colors">{{ item.title }}</h3>
+            <p class="text-sm text-gray-400">{{ item.desc }}</p>
+          </div>
+        </NuxtLink>
+      </div>
+    </div>
+
+    <!-- Week 3 Content Preview -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold text-white mb-6">Week 3: Support, Resistance & Levels</h2>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <NuxtLink
+          v-for="(item, i) in week3Content"
           :key="i"
           :to="item.to"
           class="group flex items-start gap-4 p-4 rounded-xl bg-gray-900 border border-gray-800 hover:border-primary-500/50 transition-all"
