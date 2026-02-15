@@ -151,6 +151,24 @@ const week3Content = [
       </div>
     </div>
 
+    <!-- Trading System CTA -->
+    <div class="mt-12 p-6 rounded-xl bg-primary-500/5 border border-primary-500/20">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <UIcon name="i-heroicons-map" class="w-6 h-6 text-primary-400" />
+            <h2 class="text-xl font-bold text-primary-400">The Complete Trading System</h2>
+          </div>
+          <p class="text-gray-400 text-sm">
+            All Week 1-3 learnings combined into one actionable workflow with an interactive trade checklist.
+          </p>
+        </div>
+        <UButton to="/trading-system" size="lg" color="primary" icon="i-heroicons-arrow-right">
+          Open System
+        </UButton>
+      </div>
+    </div>
+
     <!-- Features Grid -->
     <div class="mt-16">
       <h2 class="text-2xl font-bold text-white mb-6">Learning Tools</h2>

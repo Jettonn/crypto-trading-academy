@@ -9,7 +9,8 @@ const navigation = [
     children: [
       { label: 'Introduction', to: '/', icon: 'i-heroicons-home' },
       { label: 'Week 1 Overview', to: '/week-1', icon: 'i-heroicons-calendar' },
-      { label: 'Week 2 Overview', to: '/week-2', icon: 'i-heroicons-calendar' }
+      { label: 'Week 2 Overview', to: '/week-2', icon: 'i-heroicons-calendar' },
+      { label: 'Week 3 Overview', to: '/week-3', icon: 'i-heroicons-calendar' }
     ]
   },
   {
@@ -26,6 +27,21 @@ const navigation = [
     icon: 'i-heroicons-chart-bar-square',
     children: [
       { label: 'Market Structure', to: '/market-structure', icon: 'i-heroicons-arrows-up-down' },
+    ]
+  },
+  {
+    label: 'Week 3 - Levels',
+    icon: 'i-heroicons-map-pin',
+    children: [
+      { label: 'Support & Resistance', to: '/support-resistance', icon: 'i-heroicons-arrows-up-down' },
+      { label: 'Level Trading', to: '/levels-trading', icon: 'i-heroicons-chart-bar-square' },
+    ]
+  },
+  {
+    label: 'Trading System',
+    icon: 'i-heroicons-rocket-launch',
+    children: [
+      { label: 'Complete System', to: '/trading-system', icon: 'i-heroicons-map' },
     ]
   },
   {
@@ -54,7 +70,7 @@ const progressValue = computed(() => (masteredTerms.value.size / 40) * 100)
             </div>
             <span class="text-lg font-bold text-white">Crypto Academy</span>
           </NuxtLink>
-          <UBadge color="primary" variant="soft" size="xs">Week 1-2</UBadge>
+          <UBadge color="primary" variant="soft" size="xs">Week 1-3</UBadge>
         </div>
 
         <div class="flex items-center gap-2">
