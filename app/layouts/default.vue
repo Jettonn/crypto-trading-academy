@@ -50,7 +50,8 @@ const navigation = [
     children: [
       { label: 'Flashcards', to: '/flashcards', icon: 'i-heroicons-rectangle-stack' },
       { label: 'Quiz', to: '/quiz', icon: 'i-heroicons-question-mark-circle' },
-      { label: 'Calculators', to: '/calculators', icon: 'i-heroicons-calculator' }
+      { label: 'Calculators', to: '/calculators', icon: 'i-heroicons-calculator' },
+      { label: 'XAUUSD Position Size', to: '/xauusd-position-size', icon: 'i-heroicons-scale' }
     ]
   }
 ]
